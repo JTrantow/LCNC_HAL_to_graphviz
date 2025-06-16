@@ -59,4 +59,4 @@ Specifically (implemented):
     Run the halcmd twice to create pin.out and sig.out
     Run hal_sigs_graphviz.py to create the .dot output.
 
-![Image of process diagram.](.\assets\Overview.svg)
+![Image of process diagram.](.\assets\Overview.png)
