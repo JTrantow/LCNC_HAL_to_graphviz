@@ -1,0 +1,49 @@
+/*!
+        \file mainPage.dox	
+        \brief This file contains the doxygen mainpage.
+        
+        Having this in a separate file allows the documentation to be updated without changing a code file.
+                
+        \mainpage LinuxCNC 
+                        
+        \section features_section Features
+                
+        \section toDo_section ToDo 
+                
+        \section ref_section References
+
+
+        \section Overall Strategy
+
+    \addtogroup strategy
+    \dot
+
+        digraph structs {
+            concentrate=true
+            rankdir="LR"
+            label="Overview"
+
+            config [label="Running LinuxCNC system\nusing multiple .hal files"]
+            
+            pin    [ shape="box"    label="pin.out"]
+            sig    [ shape="box"    label="sig.out"]
+
+            LCNC [ label="LinuxCNC"]
+            
+            n0 [shape="point" style="invis"];
+
+
+            config -> pin [label="halcmd [pin opts]     "]
+            config -> sig [label="halcmd [signal opts]"]
+        
+            
+            {pin sig} -> n0;
+            n0->LCNC [label="hal_sigs_graphviz.py"]
+
+    }    \enddot
+*/
+
+
+*/
+
+
