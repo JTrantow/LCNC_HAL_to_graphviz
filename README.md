@@ -50,16 +50,23 @@ Goal is to divide config HAL into multiple files (to reduce graph complexity) an
 - [ ] Have an option to include jpg representation for the component.
 
 # Overview of Process:
+![Image of process diagram.](./assets/Overview.png)
 
-## Use:
+## Prerequisites:
 - Get this repository.
 - Install graphviz with "sudo apt-get install graphviz"
+## Usage:
 - Start LCNC system.
 - Run the halcmd twice to create pin.out and sig.out
--- halcmd -s show pin | grep -e "==" > pin.out
--- halcmd -s show pin | grep -e "==" -e "<=>" > pin.out (also includes I/O signals)
--- halcmd -s show sig | grep -v "^$" > sig.out
+```
+halcmd -s show pin | grep -e "==" > pin.out
+halcmd -s show pin | grep -e "==" -e "<=>" > pin.out (also includes I/O signals)
+halcmd -s show sig | grep -v "^$" > sig.out
+```
 - Run the python code to create the dot output.
-- python3 hal_sigs_graphviz.py > myconfig.dot
-- 
-![Image of process diagram.](./assets/Overview.png)
+```
+python3 hal_sigs_graphviz.py > myconfig.dot
+```
+## Example Output: 
+(showning complexity and other problems.)
+![Image of Mill configuration diagram.](./assets/Mill.png)
