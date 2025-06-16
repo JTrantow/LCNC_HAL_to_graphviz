@@ -45,7 +45,492 @@
         }    \enddot
 */
 
+/*!
+
+    \addtogroup Mill_config
+    \dot
+
+
+digraph hal_nets {
+	graph [rankdir="LR"];
+	label = "Mill Config"
+	node [fontsize = "8"];
+
+	subgraph "cluster_and2_extras2" {
+		label = "and2_extras2"
+		"and2_extras2" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="in0"> in0</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="in1"> in1</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="out"> out</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_and2_extras3" {
+		label = "and2_extras3"
+		"and2_extras3" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="in0"> in0</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="in1"> in1</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="out"> out</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_gmoccapy" {
+		label = "gmoccapy"
+		"gmoccapy" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="messages_estop_VFD"> messages.estop-VFD</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="messages_estop_driver"> messages.estop-driver</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="messages_estop_overtravel"> messages.estop-overtravel</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="messages_estop_s_encoder"> messages.estop-s-encoder</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="messages_estop_x_encoder"> messages.estop-x-encoder</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="messages_estop_y_encoder"> messages.estop-y-encoder</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="messages_estop_z_encoder"> messages.estop-z-encoder</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="spindle_at_speed_led"> spindle_at_speed_led</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="spindle_feedback_bar"> spindle_feedback_bar</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="toolchange_change"> toolchange-change</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="toolchange_number"> toolchange-number</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="tooloffset_z"> tooloffset-z</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="toolchange_changed"> toolchange-changed</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_halui" {
+		label = "halui"
+		"halui" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="axis_jog_speed"> axis.jog-speed</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="axis_x_analog"> axis.x.analog</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="axis_x_minus"> axis.x.minus</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="axis_x_plus"> axis.x.plus</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="axis_y_analog"> axis.y.analog</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="axis_z_analog"> axis.z.analog</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="axis_z_minus"> axis.z.minus</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="axis_z_plus"> axis.z.plus</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="joint_0_analog"> joint.0.analog</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="joint_0_minus"> joint.0.minus</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="joint_0_plus"> joint.0.plus</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="joint_1_analog"> joint.1.analog</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="joint_1_minus"> joint.1.minus</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="joint_1_plus"> joint.1.plus</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="joint_2_analog"> joint.2.analog</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="joint_jog_speed"> joint.jog-speed</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="mode_auto"> mode.auto</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="mode_manual"> mode.manual</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="spindle_0_start"> spindle.0.start</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="spindle_0_stop"> spindle.0.stop</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="machine_is_on"> machine.is-on</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="spindle_0_is_on"> spindle.0.is-on</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_hm2_7i92.0" {
+		label = "hm2_7i92.0"
+		"hm2_7i92.0" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="encoder_00_index_enable"> encoder.00.index-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="encoder_00_quad_error_enable"> encoder.00.quad-error-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="encoder_01_index_enable"> encoder.01.index-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="encoder_01_quad_error_enable"> encoder.01.quad-error-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="encoder_02_index_enable"> encoder.02.index-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="encoder_02_quad_error_enable"> encoder.02.quad-error-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="encoder_03_index_enable"> encoder.03.index-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="encoder_03_quad_error_enable"> encoder.03.quad-error-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="stepgen_00_enable"> stepgen.00.enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="stepgen_00_index_enable"> stepgen.00.index-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="stepgen_00_velocity_cmd"> stepgen.00.velocity-cmd</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="stepgen_01_enable"> stepgen.01.enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="stepgen_01_index_enable"> stepgen.01.index-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="stepgen_01_velocity_cmd"> stepgen.01.velocity-cmd</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="stepgen_02_enable"> stepgen.02.enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="stepgen_02_index_enable"> stepgen.02.index-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="stepgen_02_velocity_cmd"> stepgen.02.velocity-cmd</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="encoder_00_position"> encoder.00.position</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="encoder_00_quad_error"> encoder.00.quad-error</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="encoder_00_velocity"> encoder.00.velocity</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="encoder_01_position"> encoder.01.position</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="encoder_01_quad_error"> encoder.01.quad-error</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="encoder_01_velocity"> encoder.01.velocity</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="encoder_02_position"> encoder.02.position</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="encoder_02_quad_error"> encoder.02.quad-error</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="encoder_02_velocity"> encoder.02.velocity</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="encoder_03_position"> encoder.03.position</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="encoder_03_quad_error"> encoder.03.quad-error</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="encoder_03_velocity"> encoder.03.velocity</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="gpio_017_in"> gpio.017.in</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="gpio_019_in"> gpio.019.in</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="gpio_021_in"> gpio.021.in</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="gpio_025_in"> gpio.025.in</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="gpio_027_in"> gpio.027.in</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="gpio_029_in_not"> gpio.029.in_not</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="gpio_031_in_not"> gpio.031.in_not</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_input.0" {
+		label = "input.0"
+		"input.0" [ shape="box" label=<
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="abs_hat0x_is_neg"> abs-hat0x-is-neg</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="abs_hat0x_is_pos"> abs-hat0x-is-pos</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="abs_hat0y_is_neg"> abs-hat0y-is-neg</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="abs_hat0y_is_pos"> abs-hat0y-is-pos</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="abs_rz_position"> abs-rz-position</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="abs_x_position"> abs-x-position</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="abs_y_position"> abs-y-position</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="btn_base"> btn-base</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="btn_base4"> btn-base4</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="btn_thumb"> btn-thumb</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="btn_thumb2"> btn-thumb2</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="btn_top2"> btn-top2</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="btn_trigger"> btn-trigger</TD></TR>
+				</TABLE>
+		>]
+	}
+	subgraph "cluster_iocontrol.0" {
+		label = "iocontrol.0"
+		"iocontrol.0" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="emc_enable_in"> emc-enable-in</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="tool_changed"> tool-changed</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="tool_prepared"> tool-prepared</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="tool_change"> tool-change</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="tool_prep_number"> tool-prep-number</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="tool_prepare"> tool-prepare</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="user_enable_out"> user-enable-out</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="user_request_enable"> user-request-enable</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_motion" {
+		label = "motion"
+		"motion" [ shape="box" label=<
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="probe_input"> probe-input</TD></TR>
+				</TABLE>
+		>]
+	}
+	subgraph "cluster_mux2_x" {
+		label = "mux2_x"
+		"mux2_x" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="in0"> in0</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="in1"> in1</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="sel"> sel</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="out"> out</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_mux2_y" {
+		label = "mux2_y"
+		"mux2_y" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="in0"> in0</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="in1"> in1</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="sel"> sel</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="out"> out</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_mux2_z" {
+		label = "mux2_z"
+		"mux2_z" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="in0"> in0</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="in1"> in1</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="sel"> sel</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="out"> out</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_mux4.0" {
+		label = "mux4.0"
+		"mux4.0" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="sel0"> sel0</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="sel1"> sel1</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="out"> out</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_not_extras0" {
+		label = "not_extras0"
+		"not_extras0" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="in"> in</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="out"> out</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_or2_joy0" {
+		label = "or2_joy0"
+		"or2_joy0" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="in0"> in0</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="in1"> in1</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="out"> out</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_or2_joy1" {
+		label = "or2_joy1"
+		"or2_joy1" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="in0"> in0</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="in1"> in1</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="out"> out</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_or2_probe" {
+		label = "or2_probe"
+		"or2_probe" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="in0"> in0</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="out"> out</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_pid" {
+		label = "pid"
+		"pid" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="x_command"> x.command</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="x_command_deriv"> x.command-deriv</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="x_enable"> x.enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="x_feedback"> x.feedback</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="x_feedback_deriv"> x.feedback-deriv</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="x_index_enable"> x.index-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="y_command"> y.command</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="y_command_deriv"> y.command-deriv</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="y_enable"> y.enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="y_feedback"> y.feedback</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="y_feedback_deriv"> y.feedback-deriv</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="y_index_enable"> y.index-enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="z_command"> z.command</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="z_command_deriv"> z.command-deriv</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="z_enable"> z.enable</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="z_feedback"> z.feedback</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="z_feedback_deriv"> z.feedback-deriv</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="z_index_enable"> z.index-enable</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="x_output"> x.output</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="y_output"> y.output</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="z_output"> z.output</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_spindle-vfd" {
+		label = "spindle-vfd"
+		"spindle-vfd" [ shape="box" label=<
+			<TABLE CELLBORDER="0" BORDER="0"><TR><TD> 
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="speed_command"> speed-command</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="spindle_fwd"> spindle-fwd</TD></TR>
+					<TR><TD ALIGN="LEFT" PORT="spindle_on"> spindle-on</TD></TR>
+				</TABLE>
+				</TD><TD>
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="RIGHT" PORT="at_speed"> at-speed</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="load_percentage"> load-percentage</TD></TR>
+					<TR><TD ALIGN="RIGHT" PORT="motor_RPM"> motor-RPM</TD></TR>
+				</TABLE>
+			</TD></TR></TABLE>
+		>]
+	}
+	subgraph "cluster_spindle_load" {
+		label = "spindle_load"
+		"spindle_load" [ shape="box" label=<
+				<TABLE CELLBORDER="0" BORDER="1">
+					<TR><TD ALIGN="LEFT" PORT="bar_spindle_load"> bar_spindle_load</TD></TR>
+				</TABLE>
+		>]
+	}
+
+	"input.0":btn_top2	 -> 	"halui":mode_auto	 [label="auto"];
+	"input.0":btn_base4	 -> 	"and2_extras2":in0	 [label="base4-button"];
+	"input.0":btn_base4	 -> 	"and2_extras3":in1	 [label="base4-button"];
+	"hm2_7i92.0":gpio_031_in_not	 -> 	"gmoccapy":messages_estop_VFD	 [label="estop-VFD"];
+	"hm2_7i92.0":gpio_029_in_not	 -> 	"gmoccapy":messages_estop_driver	 [label="estop-driver"];
+	"hm2_7i92.0":gpio_025_in	 -> 	"gmoccapy":messages_estop_overtravel	 [label="estop-overtravel"];
+	"hm2_7i92.0":encoder_03_quad_error	 -> 	"gmoccapy":messages_estop_s_encoder	 [label="estop-s-encoder"];
+	"hm2_7i92.0":encoder_00_quad_error	 -> 	"gmoccapy":messages_estop_x_encoder	 [label="estop-x-encoder"];
+	"hm2_7i92.0":encoder_01_quad_error	 -> 	"gmoccapy":messages_estop_y_encoder	 [label="estop-y-encoder"];
+	"hm2_7i92.0":encoder_02_quad_error	 -> 	"gmoccapy":messages_estop_z_encoder	 [label="estop-z-encoder"];
+	"input.0":btn_thumb2	 -> 	"or2_joy0":in1	 [label="fast"];
+	"input.0":btn_thumb2	 -> 	"or2_joy1":in1	 [label="fast"];
+	"mux4.0":out	 -> 	"halui":axis_jog_speed	 [label="jog-speed"];
+	"mux4.0":out	 -> 	"halui":joint_jog_speed	 [label="jog-speed"];
+	"mux2_x":out	 -> 	"halui":axis_x_analog	 [label="jog-x-analog"];
+	"mux2_x":out	 -> 	"halui":joint_0_analog	 [label="jog-x-analog"];
+	"mux2_x":out	 -> 	"mux2_x":in0	 [label="jog-x-analog"];
+	"input.0":abs_hat0y_is_neg	 -> 	"halui":axis_x_minus	 [label="jog-x-neg"];
+	"input.0":abs_hat0y_is_neg	 -> 	"halui":joint_0_minus	 [label="jog-x-neg"];
+	"input.0":abs_hat0y_is_pos	 -> 	"halui":axis_x_plus	 [label="jog-x-pos"];
+	"input.0":abs_hat0y_is_pos	 -> 	"halui":joint_0_plus	 [label="jog-x-pos"];
+	"input.0":abs_x_position	 -> 	"mux2_x":in1	 [label="jog-x-pre"];
+	"mux2_y":out	 -> 	"halui":axis_y_analog	 [label="jog-y-analog"];
+	"mux2_y":out	 -> 	"halui":joint_1_analog	 [label="jog-y-analog"];
+	"mux2_y":out	 -> 	"mux2_y":in0	 [label="jog-y-analog"];
+	"input.0":abs_y_position	 -> 	"mux2_y":in1	 [label="jog-y-pre"];
+	"mux2_z":out	 -> 	"halui":axis_z_analog	 [label="jog-z-analog"];
+	"mux2_z":out	 -> 	"halui":joint_2_analog	 [label="jog-z-analog"];
+	"mux2_z":out	 -> 	"mux2_z":in0	 [label="jog-z-analog"];
+	"input.0":abs_hat0x_is_neg	 -> 	"halui":axis_z_minus	 [label="jog-z-neg"];
+	"input.0":abs_hat0x_is_neg	 -> 	"halui":joint_1_minus	 [label="jog-z-neg"];
+	"input.0":abs_hat0x_is_pos	 -> 	"halui":axis_z_plus	 [label="jog-z-pos"];
+	"input.0":abs_hat0x_is_pos	 -> 	"halui":joint_1_plus	 [label="jog-z-pos"];
+	"input.0":abs_rz_position	 -> 	"mux2_z":in1	 [label="jog-z-pre"];
+	"or2_joy0":out	 -> 	"mux4.0":sel0	 [label="joy-speed-sel0"];
+	"or2_joy1":out	 -> 	"mux4.0":sel1	 [label="joy-speed-sel1"];
+	"hm2_7i92.0":gpio_027_in	 -> 	"or2_probe":in0	 [label="length-in"];
+	"halui":machine_is_on	 -> 	"hm2_7i92.0":encoder_00_quad_error_enable	 [label="machine-is-on"];
+	"halui":machine_is_on	 -> 	"hm2_7i92.0":encoder_01_quad_error_enable	 [label="machine-is-on"];
+	"halui":machine_is_on	 -> 	"hm2_7i92.0":encoder_02_quad_error_enable	 [label="machine-is-on"];
+	"halui":machine_is_on	 -> 	"hm2_7i92.0":encoder_03_quad_error_enable	 [label="machine-is-on"];
+	"halui":machine_is_on	 -> 	"mux2_x":sel	 [label="machine-is-on"];
+	"halui":machine_is_on	 -> 	"mux2_y":sel	 [label="machine-is-on"];
+	"halui":machine_is_on	 -> 	"mux2_z":sel	 [label="machine-is-on"];
+	"input.0":btn_base	 -> 	"halui":mode_manual	 [label="manual"];
+	"input.0":btn_thumb	 -> 	"or2_joy1":in0	 [label="medium"];
+	"or2_probe":out	 -> 	"motion":probe_input	 [label="probe-or-length"];
+	"input.0":btn_trigger	 -> 	"or2_joy0":in0	 [label="slow"];
+	"spindle-vfd":at_speed	 -> 	"gmoccapy":spindle_at_speed_led	 [label="spindle-at-speed"];
+	"hm2_7i92.0":encoder_03_index_enable	 -> 	"hm2_7i92.0":encoder_03_index_enable	 [label="spindle-index-enable"];
+	"not_extras0":out	 -> 	"and2_extras3":in0	 [label="spindle-is-off"];
+	"spindle-vfd":load_percentage	 -> 	"spindle_load":bar_spindle_load	 [label="spindle-load-percent"];
+	"halui":spindle_0_is_on	 -> 	"and2_extras2":in1	 [label="spindle-on"];
+	"halui":spindle_0_is_on	 -> 	"not_extras0":in	 [label="spindle-on"];
+	"spindle-vfd":motor_RPM	 -> 	"gmoccapy":spindle_feedback_bar	 [label="spindle-rpm"];
+	"and2_extras3":out	 -> 	"halui":spindle_0_start	 [label="spindle-start"];
+	"and2_extras2":out	 -> 	"halui":spindle_0_stop	 [label="spindle-stop"];
+	"iocontrol.0":tool_change	 -> 	"gmoccapy":toolchange_change	 [label="tool-change"];
+	"gmoccapy":toolchange_changed	 -> 	"iocontrol.0":tool_changed	 [label="tool-changed"];
+	"iocontrol.0":tool_prepare	 -> 	"iocontrol.0":tool_prepared	 [label="tool-prep-loop"];
+	"iocontrol.0":tool_prep_number	 -> 	"gmoccapy":toolchange_number	 [label="tool-prep-number"];
+	"hm2_7i92.0":encoder_00_index_enable	 -> 	"hm2_7i92.0":encoder_00_index_enable	 [label="x-index-enable"];
+	"hm2_7i92.0":encoder_00_index_enable	 -> 	"hm2_7i92.0":stepgen_00_index_enable	 [label="x-index-enable"];
+	"hm2_7i92.0":encoder_00_index_enable	 -> 	"pid":x_index_enable	 [label="x-index-enable"];
+	"pid":x_output	 -> 	"hm2_7i92.0":stepgen_00_velocity_cmd	 [label="x-output"];
+	"hm2_7i92.0":encoder_00_position	 -> 	"pid":x_feedback	 [label="x-pos-fb"];
+	"hm2_7i92.0":encoder_00_velocity	 -> 	"pid":x_feedback_deriv	 [label="x-vel-fb"];
+	"hm2_7i92.0":encoder_01_index_enable	 -> 	"hm2_7i92.0":encoder_01_index_enable	 [label="y-index-enable"];
+	"hm2_7i92.0":encoder_01_index_enable	 -> 	"hm2_7i92.0":stepgen_01_index_enable	 [label="y-index-enable"];
+	"hm2_7i92.0":encoder_01_index_enable	 -> 	"pid":y_index_enable	 [label="y-index-enable"];
+	"pid":y_output	 -> 	"hm2_7i92.0":stepgen_01_velocity_cmd	 [label="y-output"];
+	"hm2_7i92.0":encoder_01_position	 -> 	"pid":y_feedback	 [label="y-pos-fb"];
+	"hm2_7i92.0":encoder_01_velocity	 -> 	"pid":y_feedback_deriv	 [label="y-vel-fb"];
+	"hm2_7i92.0":encoder_02_index_enable	 -> 	"hm2_7i92.0":encoder_02_index_enable	 [label="z-index-enable"];
+	"hm2_7i92.0":encoder_02_index_enable	 -> 	"hm2_7i92.0":stepgen_02_index_enable	 [label="z-index-enable"];
+	"hm2_7i92.0":encoder_02_index_enable	 -> 	"pid":z_index_enable	 [label="z-index-enable"];
+	"pid":z_output	 -> 	"hm2_7i92.0":stepgen_02_velocity_cmd	 [label="z-output"];
+	"hm2_7i92.0":encoder_02_position	 -> 	"pid":z_feedback	 [label="z-pos-fb"];
+	"hm2_7i92.0":encoder_02_velocity	 -> 	"pid":z_feedback_deriv	 [label="z-vel-fb"];
+}         \enddot
+/*!
+    \addtogroup next
+
+    \dot
+
+
+        digraph structs {
+            concentrate=true
+            rankdir="LR"
+            label="Overview"
+
+            config [label="Running LinuxCNC system\nusing multiple .hal files"]
+            
+            pin    [ shape="box"    label="pin.out"]
+            sig    [ shape="box"    label="sig.out"]
+
+            dot_out [ shape="box" label="myconfig.dot"]
+            
+            n0 [shape="point" style="invis"];
+
+
+            config -> pin [label="halcmd [pin opts]     "]
+            config -> sig [label="halcmd [signal opts]"]
+        
+            
+            {pin sig} -> n0;
+            n0->dot_out [label="hal_sigs_graphviz.py"]
+
+
+        }    \enddot
 
 */
-
-
