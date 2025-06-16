@@ -41,22 +41,20 @@ Complexity can be reduced by:
 
 Goal is to divide config HAL into multiple files (to reduce graph complexity) and automatically generate graphviz dot from the files to achieve maintainablity.
 
-
-Specifically (implemented):
-    * Use halcmd to selectively load portions of the config to reduce graph complexity.
-    * Use dot edges to represent HAL signals.
-    * Use dot arrow heads to correctly represent HAL pin directions. (IN, OUT, I/O)
-    * Use dot invisible nodes to represent signals that don't have both a source and destination in the loaded HAL system.
-
-    * Have some method to selectively include or exclude HAL components or features. (reduce complexity)
-    * Have an option to include jpg representation for the component.
+## Goals:
+- [x] Use halcmd to selectively load portions of the config to reduce graph complexity.
+- [x] Use dot edges to represent HAL signals.
+- [ ] Use dot arrow heads to correctly represent HAL pin directions. (IN, OUT, I/O)
+- [ ] Use dot invisible nodes to represent signals that don't have both a source and destination in the loaded HAL system.
+- [ ] Have some method to selectively include or exclude HAL components or features. (reduce complexity)
+- [ ] Have an option to include jpg representation for the component.
 
 # Overview of Process:
 
 ## Use:
-    Get this repository.
-    Start LCNC system.
-    Run the halcmd twice to create pin.out and sig.out
-    Run hal_sigs_graphviz.py to create the .dot output.
+- Get this repository.
+- Start LCNC system.
+- Run the halcmd twice to create pin.out and sig.out
+- Run hal_sigs_graphviz.py to create the .dot output.
 
 ![Image of process diagram.](./assets/Overview.png)
