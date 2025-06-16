@@ -29,7 +29,7 @@
             pin    [ shape="box"    label="pin.out"]
             sig    [ shape="box"    label="sig.out"]
 
-            dot_out [ shape="box" label="dot.out"]
+            dot_out [ shape="box" label="myconfig.dot"]
             
             n0 [shape="point" style="invis"];
 
