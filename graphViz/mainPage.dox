@@ -18,6 +18,7 @@
     \addtogroup strategy
     \dot
 
+
         digraph structs {
             concentrate=true
             rankdir="LR"
@@ -28,7 +29,7 @@
             pin    [ shape="box"    label="pin.out"]
             sig    [ shape="box"    label="sig.out"]
 
-            LCNC [ label="LinuxCNC"]
+            dot_out [ shape="box" label="dot.out"]
             
             n0 [shape="point" style="invis"];
 
@@ -38,9 +39,10 @@
         
             
             {pin sig} -> n0;
-            n0->LCNC [label="hal_sigs_graphviz.py"]
+            n0->dot_out [label="hal_sigs_graphviz.py"]
 
-    }    \enddot
+
+        }    \enddot
 */
 
 
