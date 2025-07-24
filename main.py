@@ -15,136 +15,28 @@
 #
 
 import string
-import sys
 from hal_sigs import *
 
 print("\n\n\n\n\n\n\nmain() starts here");
+
 #
 # Create a component hash of all the different components and pin_names and pin_dir.
 #
-pin_dir = dictionary.create_pin_dictionary("pin.out")
+component_dict = dictionary.create_component_dictionary("pin.out")
 
-#print('\n\nPin dictionary')
-#dictionary.print_dictionary(pin_dir)
+print("\n============== Parsed file pin.out into a dictionary ================")
+print(component_dict)
 
-if (0 ) :
-    #
-    # Go through the component_hash2 and combine name levels if there is only one subtype.
-    # For instance mux4 with two sublevels can be simplified to one sublevel.
-    #"mux4" mux4.0.out mux4.0.sel0 mux4.0.sel1"
-    #"mux4_0" mux4_0.out mux4_0.sel0 mux4_0.sel1"
-    #
-    dot_node_dictionary = {}
+#
+# Generate the HTML like graphviz node definitions.
+#
+dot.dot_header('Spindle.hal')
 
-    for comp in list(component_hash2.keys()):
-            #
-            # Look at all the pins for this component type to figure out if a level can be combined. (Combine if names have only a numeric sublevel difference.)
-            #
-            #       mux4 float OUT 0    mux4.0.out 
-            #       mux4 bit   IN FALSE mux4.0.sel0
-            #       mux4 bit   IN FALSE mux4.0.sel1
+dot.create_subgraphs(component_dict)
 
-            ignore_string = comp + "."
-            level=1
-            for [pin_name, pin_dir] in component_hash2[comp] :        
-                    pin_name_list = pin_name.split('.')
-                    if len(pin_name_list) > (level+1) and pin_name_list[level].isnumeric() :                
-                            #
-                            # Look at all the other pin names at this level.
-                            #
-                            level_same=True
+print("\n============== Cluster subgraphs created ================")
 
-                            for [p,d] in component_hash2[comp] :
-                                    p_name_list = p.split('.')
-                                    #print ('Compare ' + pin_name_list[level] + ' to ' + p_name_list[level])
-                                    if p_name_list[level] != pin_name_list[level]:
-                                            level_same = False
-                                            break
-                            if level_same :
-                                    #print('Level can be combined.'  + comp + ' ' + pin_name + ' ' + pin_dir)
-                                    break
-                    else:
-                            level_same = False
-                            break
-            if level_same :
-                    #
-                    # Combine the name and numeric as the new key.
-                    #
-                    key_name = pin_name_list[0] + "." + p_name_list[1]
-                    old_substring = p_name_list[0] + '.' + p_name_list[1]
-                    for [p,d] in component_hash2[comp] :       
-                            p = p.replace(old_substring, key_name)
-                            if key_name in dot_node_dictionary:
-                                    dot_node_dictionary[key_name].append([ p, d])                
-                            else:
-                                    dot_node_dictionary.update({key_name:[[ p, d]]})                        
-            else :
-
-                    dot_node_dictionary.update({comp: component_hash2[comp]})
-
-    if 0:
-            print('\n\ndot_node_dictionary')
-            dictionary.print_dictionary(dot_node_dictionary)
-
-    #
-    # The default halcmd puts all named components of the same component type in one big list.
-    # Break named components into separate lists. 
-    # This drops the component key name which works for my naming convention. Could easily concatenate key name
-    #
-    named_components_dictionary = {}
-    for comp in list(dot_node_dictionary.keys()):
-            #
-            # Figure out if different component names are used which should be broken out as individual nodes.
-            #
-            node_name=None
-            for [pin_name, pin_dir] in dot_node_dictionary[comp] :
-                    #
-                    # Check if the key name has been replaced.
-                    #
-                    if (comp + '.') == pin_name[:len(comp)+1] :
-                            node_name = comp;
-                            if node_name in named_components_dictionary :
-                                    named_components_dictionary[node_name].append([pin_name[len(comp)+1:],pin_dir])                
-                            else:
-                                    named_components_dictionary.update({node_name:[[pin_name[len(comp)+1:],pin_dir]]})                        
-                    else :
-                            #
-                            # Look for simple named components. "simple" implies name of "component_name.pin".
-                            #
-                            pin_name_list = pin_name.split('.')
-                            if (2 == len(pin_name_list)) :
-                                    pin_name_short = pin_name_list[0]
-                                    if node_name == None :
-                                            node_name = pin_name_short
-                                            print('\t' + node_name + ' - New name. type is ' + comp)                                        
-                                    else :                        
-                                            if pin_name_short != node_name:
-                                                    print('\t' + pin_name_short + ' - This is a new name.')
-                                                    node_name = pin_name_short
-                                    
-                                    print ('\t\t' + pin_name_list[1] + ' ' + pin_dir)
-
-                                    #
-                                    # Add to a new dictionary list.
-                                    #
-                                    if node_name in named_components_dictionary :
-                                            named_components_dictionary[node_name].append([pin_name_list[1],pin_dir])                
-                                    else:
-                                            named_components_dictionary.update({node_name:[[pin_name_list[1],pin_dir]]})                        
-                            else:
-                                    print('\t' + pin_name + ' NOT a simple name list. len() = ', len(pin_name_list))
-
-    if 0:
-            print('\nnamed_components_dictionary')
-            dictionary.print_dictionary(named_components_dictionary)
-
-    #
-    # Generate the HTML like graphviz node definitions.
-    #
-    dot.dot_header('Spindle.hal')
-    for node in list(named_components_dictionary.keys()):
-            my_cluster(node,named_components_dictionary[node])
-
+if (0) :
     #
     # Use signal names from sig.out as edge labels instead of creating extra nodes. 
     #
@@ -226,5 +118,6 @@ if (0 ) :
                     print("WARNING: Not enough sig_declarations.")
     for line in net_list:
             print(line + ";")
-    dot.dot_footer()
 
+
+    dot.dot_footer()

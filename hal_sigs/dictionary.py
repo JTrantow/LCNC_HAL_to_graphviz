@@ -33,219 +33,94 @@ def print_dictionary(dict) :
 # Returns the graphviz node and field name for the pin.
 #  
 def search_dictionary(dict, full_pin_name, debug) :
+        print("search_dictionary")
 
-        if (debug == True):
-                print('\tsd( ' + full_pin_name + ' ).')
-        for key in list(dict.keys()):
-                #
-                # Start by just looking at the key.
-                #
-                if (debug == True):
-                        print('\tsd( key ' + key + ' : ', end="")
-                        print(dict[key], end="")
-                        print(' ).')
-                        print('\t' + full_pin_name[:len(key)+1] +'.' + '. vs ' + key )
-                if (key + '.') == full_pin_name[:len(key)+1] :
-                        #
-                        # Continue match with pin name values.
-                        #
-                        if (debug == True) :
-                                print('Found the key ' + key)
+#
+# Create and return a nested dictionary for the a subset of the full pin name.
+#
+def create_name_dict(name_list, pin_details) :
+        #print("\t\tcreate_name_dict() ",end="")
+        #print(name_list)
+        
+        pin_name_dict = {}
+        #
+        # Last dictionary value in list is the leaf pin name with details list.
+        #
+        pin_name_dict.update({name_list[-1]:pin_details})
 
-                        for [pin_name, pin_dir] in dict[key] :
-                                if (key + '.' + pin_name) == full_pin_name :
-                                        if (debug == True) :
-                                                print('Found the full name ' + full_pin_name, end="")
-                                                print(' Links to "' + key + '":' + pin_name)
-                                        return('"' + key + '":' + dot.dot_field_name(pin_name))
+        for n in reversed(name_list[:-1]) :
+                pin_name_dict = {n:pin_name_dict}
+        
+        return(pin_name_dict)
 #
 # Parses the full pin_name and returns a nested dictionary list.
 # Returns the pin name broken down into a list dictionaries of component,[subcomponent], and the final pin name.
 # So pin name 'a.b.c' will be returned as [ {a:[{b:[{c:[pin_dir, pin_type]} ]} ]} ]
 #
-def parse_pinname(pin_name, pin_dir, pin_type) :
-        #print("\tparse_pinname( " + pin_name + "," +pin_dir + "," + pin_type + ")")
+def parse_fullpinname(pin_name, pin_details, dict) :
 
         pin_splits = pin_name.split('.')
-        #
-        # The last part of the pin_name(leaf) is special case.
-        #
-        name = pin_splits.pop()
-        name_list=[{name: [pin_dir, pin_type]}]
         
-        for name in reversed(pin_splits):
-                name_list={name:name_list}
-        return(name_list)
-#
-# Combine individual pin lists with common components and subcomponents.
-#
-def combine_pin_lists(l) :
-        #print('combine_pin_list()')
-        #
-        # Iterate over the list of names for this type of component.
-        # Compare the name to the other names to see if they can be combined.
-        #        
-        match_level=1
-        #
-        # Use a while loop because if we merge we want the for loops to restart.
-        #
-        while (match_level > 0) :
-                match_level=0
-
-                print("=========== starting a combine merge ============================")
-                print(l)
-
-                for idx_name, name in enumerate(l[:-1]) :
-                        print("\nname:\t",end="")
-                        print(name)
+        match = True
+        for name_index in range( len(pin_splits)) :
+                #
+                # Check all existing keys at this level for a match to the new pin name.
+                #
+                match = False
+                for k in dict.keys() :
+                        if (k == pin_splits[name_index]) :
+                                dict=dict[k]
+                                match = True; 
+                                break
+                if (match == False) :
                         #
-                        # Only need to compare the current name to the following names in the list.
-                        # By construction next_name's are assumed to be simple (only one key per list level).
+                        # No match at this level. Append here.
                         #
-                        for idx_next, name_next in enumerate(l[l.index(name)+1:]):
-                                print("next:\t",end="")
-                                print(name_next)
-                                #
-                                # We now have the name and name_next lists that should be merged if possible.
-                                #
-                                name_test=name
-                                next_test=name_next
-                                #
-                                # Loop until a key name doesn't have a match.
-                                #                                
-                                match_level=0
-                                key2=0
-                                matching_keys = True;                                                                                                              
-                                while matching_keys :
-                                        key2=list(next_test.keys())[0]
-
-                                        #
-                                        # display the name_test.keys
-                                        # 
-                                        print(name_test)
-                                        print(type(name_test))
-                                        for k in name_test.keys() :
-                                                print("Search these keys: ",end="")
-                                                print(k)
-
-                                        for k in name_test.keys() :
-                                                if (key2 == k):
-                                                        print("MATCH key is ", end="")
-                                                        print(key2)
-
-                                                        match_level = match_level+1
-
-                                                        print(type(name_test[k]))
-                                                        print(name_test[k])
-
-                                                        print(type(next_test[key2]))
-                                                        print(next_test[key2])
-
-                                                        if isinstance(name_test[k], list) and isinstance(next_test[key2], list) :
-                                                                name_test = name_test[k][0]
-                                                                next_test = next_test[key2][0]
-                                                                
-                                                                print("match level ",end="")
-                                                                print(match_level)
-                                                        else :
-                                                                print('pin name leaf reached')                                             
-                                                                break;
-                                                else :
-                                                        matching_keys = False
-                                                        print("NOT A MATCH ", end="")
-                                                        print(k,key2)
-                                                        break;                                        
-                                        print("for key match loop done.")
-                                        if match_level > 0 :
-                                                print("while key matching is done, match_level is : ", end = "")
-                                                print(match_level)
-                                        if match_level > 0 :
-                                                #
-                                                # Combine the dictionary for these two pin names.
-                                                #
-                                                print("MERGING")
-                                                print(name_test)
-                                                print(next_test)
-
-                                                name_test.update(next_test)
-                                                print("MERGED ",end="")                                                                                                
-                                                print(name_test)
-                                                #
-                                                # Remove the pin name that was just merged.
-                                                #
-                                                print("REMOVING ",end="")
-                                                print(l[idx_name+idx_next+1] )
-                                                del l[idx_name+idx_next+1]                                          
-                                                #sys.exit()
-                                                #
-                                                # Since we merged and deleted we need to restart the big while loop.
-                                                #
-                                                break;
-                                        else:
-                                               break;                                
-                                print(match_level)
-                                if (match_level > 0) :
-                                        break;
-                        if (match_level > 0) :
-                                break;
-        print("while no more matches done")
-        print(l)
-        return(l)
+                        dict.update(create_name_dict(pin_splits[name_index:], pin_details))
+                        break 
 #
-# Creates a pin dictionary from the halcmd show pins output.  
-# The dictionary keys are the linuxcnc components.
+# Creates a component dictionary from the halcmd show pins output file.
+# The dictionary keys at the top level are the linuxcnc components.
 #
-def create_pin_dictionary(filename) :
-        
-        if (0) :
-                print('test keys')
-                #d = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5}
-                d =  {'a': [{'pin1': ['IN', 'bit']}]}, {'a': {'b': [{'pin2': ['IN', 'bit']}]}}, {'a': {'b': [{'pin3': ['IN', 'bit']}]}}
-
-                print(type(d))
-                print(type(d[0]))
-                print(d)
-                #print(list(d.keys()))
-        
+def create_component_dictionary(filename) :
         #
-        # Create a component hash of all the different components and pin_names and pin_dir.
-        # Each component has a dictionary of named components of the same type.
+        # Create a component hash of all the different base components and then call parse_pinname to parse the subgroups, pin_names and pin_dir.
         #
-        pin_dictionary={}
-
-        #
-        # Start by putting each pinname into the pin_dictionary (without any combining of component or subcomponent names)
-        #
+        component_dictionary = {}
         f = open(filename, "r")
         for line in f:
                 if len(line.split()) >= 5 :
                         comp_name, pin_type, pin_dir, pin_value, pin_name = line.split()[:5]
 
-                        #print("NEW FILE LINE "+comp_name, pin_name, pin_dir)
-                        p = parse_pinname(pin_name, pin_dir, pin_type)
-                        pin_dictionary.setdefault(comp_name,[]).append(p)
+                        #print("NEW FILE LINE " + comp_name, pin_name, pin_dir)
+                        name_dictionary = component_dictionary.setdefault(comp_name,{})
+                        parse_fullpinname(pin_name, [pin_dir, pin_type], name_dictionary)
                         #print('\n\n---- LINE COMPLETE ---------------------')
-                        #print_dictionary(pin_dictionary)
+                        #print_dictionary(component_dictionary)
                         #print('---------------------------------------')
                 else :
-                        print("check "+filename+" for empty lines")
+                        print("check " + filename + " for empty lines")
                         break;
-        #
-        # Now that we have all the names in the dictionary, we can combine individual pin lists that share components and subcomponents which will aid the dot representation.
-        #
-        for key in list(pin_dictionary.keys()):
-                print('=============== COMBINE ' + key + " ==================")
-                combine_pin_lists(pin_dictionary[key])
-
-                print_dictionary(pin_dictionary)
-
-                #for components_used_key in pin_dictionary.keys():
-                        #print("component key:" + components_used_key)
-
-                        #print(pin_dictionary[components_used_key][0])
-
-                        #for component_name_key in pin_dictionary[components_used_key][0][0].keys():
-                        #        print("\t"+component_name_key)
         
-        return pin_dictionary                
+        if (0) :
+                #
+                # Now that we have all the names in the dictionary, we can combine individual pin lists that share components and subcomponents which will aid the dot representation.
+                #
+                for key in list(component_dictionary.keys()):
+                        print('=============== COMBINE ' + key + " ==================")
+                        combine_pin_lists(pin_dictionary[key])
+
+                        print_dictionary(pin_dictionary)
+
+                        #for components_used_key in pin_dictionary.keys():
+                                #print("component key:" + components_used_key)
+
+                                #print(pin_dictionary[components_used_key][0])
+
+                                #for component_name_key in pin_dictionary[components_used_key][0][0].keys():
+                                #        print("\t"+component_name_key)
+        
+        return component_dictionary      
+
+
         
