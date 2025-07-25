@@ -24,11 +24,10 @@ print("\n\n\n\n\n\n\nmain() starts here");
 #
 component_dict = dictionary.create_component_dictionary("pin.out")
 
-print("\n============== Parsed file pin.out into a dictionary ================")
-print(component_dict)
-
+#
+# Optional step that combines dictionary levels if there is only one element.
+#
 component_dict = dictionary.combine_dictionary_levels(component_dict)
-print(component_dict)
 
 #
 # Generate the HTML like graphviz node definitions.
@@ -36,8 +35,6 @@ print(component_dict)
 dot.dot_header('RockwellMill.hal')
 
 dot.create_subgraphs(component_dict)
-
-print("\n# ============== Cluster subgraphs created ================")
 
 dot.create_edges("sig.out")
 dot.dot_footer()
