@@ -29,13 +29,6 @@ def print_dictionary(dict) :
         else:
                 print("empty dictionary")
 #
-# Search the dictionary for the pin name.
-# Returns the graphviz node and field name for the pin.
-#  
-def search_dictionary(dict, full_pin_name, debug) :
-        print("search_dictionary")
-
-#
 # Create and return a nested dictionary for the a subset of the full pin name.
 #
 def create_name_dict(name_list, pin_details) :
@@ -79,7 +72,7 @@ def parse_fullpinname(pin_name, pin_details, dict) :
                         dict.update(create_name_dict(pin_splits[name_index:], pin_details))
                         break 
 #
-# Creates a component dictionary from the halcmd show pins output file.
+# Creates a nested component dictionary from the halcmd show pins output file for all pin names.
 # The dictionary keys at the top level are the linuxcnc components.
 #
 def create_component_dictionary(filename) :
@@ -101,26 +94,47 @@ def create_component_dictionary(filename) :
                 else :
                         print("check " + filename + " for empty lines")
                         break;
-        
-        if (0) :
-                #
-                # Now that we have all the names in the dictionary, we can combine individual pin lists that share components and subcomponents which will aid the dot representation.
-                #
-                for key in list(component_dictionary.keys()):
-                        print('=============== COMBINE ' + key + " ==================")
-                        combine_pin_lists(pin_dictionary[key])
-
-                        print_dictionary(pin_dictionary)
-
-                        #for components_used_key in pin_dictionary.keys():
-                                #print("component key:" + components_used_key)
-
-                                #print(pin_dictionary[components_used_key][0])
-
-                                #for component_name_key in pin_dictionary[components_used_key][0][0].keys():
-                                #        print("\t"+component_name_key)
-        
         return component_dictionary      
 
-
+#
+# Searches all the names for a specific component for levels that can be simplified. (only one subcomponent name at a level)
+# Return a copy of the dictionary to avoid problems adding and deleting to the dictionary while iterating.
+# TODO: This only combines names at the component.sub1.sub2...leaf sub1 level. Could be extended to combine sub2..sunN levels.
+# 
+def combine_dictionary_names(names_dict) :
         
+        combined_dict = {}
+
+        for component_key in names_dict.keys() :  # First component(not subcomponent) name level. 
+                #
+                # Check One level down
+                #
+                sub_component_key = names_dict[component_key].keys()
+
+                if (1 == len(sub_component_key)) and isinstance(names_dict[component_key][list(sub_component_key)[0]], dict):
+                        key = list(sub_component_key)[0]
+                        new_value = names_dict[component_key][key] #next(iter(sub_dictionary.values()))
+                        new_key = component_key + '.' + key # We know there is only one, so take the first.
+                        #
+                        # New dictionary key that swallows a level.
+                        #
+                        combined_dict.update({new_key: new_value})
+                else:
+                        combined_dict.update( {component_key : names_dict[component_key] } )
+        return(combined_dict)
+
+#
+# Searchs the component directory and combines names if there is a component or subcomponent dictionary level with only one key.
+# This simplifies the graph by removing a subcluster.
+#
+def combine_dictionary_levels(dictionary) :
+        combined_dict={}
+        for cc in list(dictionary.keys()) :  # Copy of the keys.
+                combined_dict.update({cc : combine_dictionary_names(dictionary[cc])})
+        return(combined_dict)
+
+
+
+
+                                
+
