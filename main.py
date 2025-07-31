@@ -24,17 +24,21 @@ print("\n\n\n\n\n\n\nmain() starts here");
 #
 component_dict = dictionary.create_component_dictionary("pin.out")
 
-#
-# Optional step that combines dictionary levels if there is only one element.
-#
-component_dict = dictionary.combine_dictionary_levels(component_dict)
+if (1) :
+    #
+    # Optional step that combines dictionary levels if there is only one element.
+    #
+    component_dict = dictionary.combine_dictionary_levels(component_dict)
 
-#
-# Generate the HTML like graphviz node definitions.
-#
-dot.dot_header('RockwellMill.hal')
+    print(component_dict)
 
-dot.create_subgraphs(component_dict)
+if (1) : 
+    #
+    # Generate the HTML like graphviz node definitions.
+    #
+    dot.dot_header('Combine Test')
 
-dot.create_edges("sig.out")
-dot.dot_footer()
+    dot.create_subgraphs(component_dict)
+
+    dot.create_edges("sig.out", component_dict)
+    dot.dot_footer()

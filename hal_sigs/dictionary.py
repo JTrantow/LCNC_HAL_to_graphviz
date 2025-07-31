@@ -48,7 +48,7 @@ def create_name_dict(name_list, pin_details) :
 #
 # Parses the full pin_name and returns a nested dictionary list.
 # Returns the pin name broken down into a list dictionaries of component,[subcomponent], and the final pin name.
-# So pin name 'a.b.c' will be returned as [ {a:[{b:[{c:[pin_dir, pin_type]} ]} ]} ]
+# So pin name 'a.b.c' will be returned as [ {a:[{b:[{c:[pin_dir, pin_type, pin_value]} ]} ]} ]
 #
 def parse_fullpinname(pin_name, pin_details, dict) :
 
@@ -87,7 +87,7 @@ def create_component_dictionary(filename) :
 
                         #print("NEW FILE LINE " + comp_name, pin_name, pin_dir)
                         name_dictionary = component_dictionary.setdefault(comp_name,{})
-                        parse_fullpinname(pin_name, [pin_dir, pin_type], name_dictionary)
+                        parse_fullpinname(pin_name, [pin_dir, pin_type, pin_value], name_dictionary)
                         #print('\n\n---- LINE COMPLETE ---------------------')
                         #print_dictionary(component_dictionary)
                         #print('---------------------------------------')
@@ -99,29 +99,56 @@ def create_component_dictionary(filename) :
 #
 # Searches all the names for a specific component for levels that can be simplified. (only one subcomponent name at a level)
 # Return a copy of the dictionary to avoid problems adding and deleting to the dictionary while iterating.
-# TODO: This only combines names at the component.sub1.sub2...leaf sub1 level. Could be extended to combine sub2..sunN levels.
 # 
 def combine_dictionary_names(names_dict) :
-        
         combined_dict = {}
+        combined_level = False
 
-        for component_key in names_dict.keys() :  # First component(not subcomponent) name level. 
+        for component_key in names_dict.keys() :  # First component/subcomponent name level. 
                 #
-                # Check One level down
+                # Check One level down to see if there is a single name key can be combined with level above.
                 #
-                sub_component_key = names_dict[component_key].keys()
+                if isinstance(names_dict[component_key], dict) :
+                        next_component_key = names_dict[component_key].keys()
 
-                if (1 == len(sub_component_key)) and isinstance(names_dict[component_key][list(sub_component_key)[0]], dict):
-                        key = list(sub_component_key)[0]
-                        new_value = names_dict[component_key][key] #next(iter(sub_dictionary.values()))
-                        new_key = component_key + '.' + key # We know there is only one, so take the first.
-                        #
-                        # New dictionary key that swallows a level.
-                        #
-                        combined_dict.update({new_key: new_value})
-                else:
+                        if (1 == len(next_component_key)): #and isinstance(names_dict[component_key][list(next_component_key)[0]], dict) :
+                                key = list(next_component_key)[0]
+                                new_value = names_dict[component_key][key] #next(iter(sub_dictionary.values()))
+                                new_key = component_key + '.' + key # We know there is only one, so take the first.
+                                #
+                                # New dictionary key that swallows a level.
+                                #
+                                combined_dict.update({new_key: new_value})
+                                combined_level = True
+                        else :
+                                combined_dict.update( {component_key : names_dict[component_key] } )
+                else :
                         combined_dict.update( {component_key : names_dict[component_key] } )
-        return(combined_dict)
+        #
+        # Recurse the next sub level of dictionary we may have updated.
+        #
+        if (combined_level) :
+                #
+                # Current level has been combined, recheck this level.
+                #
+                rec_dict = combine_dictionary_names(combined_dict)
+        else:
+                rec_dict = {}
+                for component_key in combined_dict.keys() :  
+
+                        print(component_key, combined_dict[component_key])
+                        if isinstance(combined_dict[component_key], dict) :
+                                #
+                                # Recurse the next sub level of dictionary we may have updated.
+                                #       
+                                for sub_key, sub_value in combined_dict[component_key].items() :
+                                        if isinstance(sub_value, dict) :
+                                                rec_dict.update( {component_key : combine_dictionary_names(combined_dict[component_key]) })
+                                        else :
+                                                rec_dict.update( {component_key : combined_dict[component_key]})
+                        else :
+                                rec_dict.update( {component_key : combined_dict[component_key] } )
+        return(rec_dict)
 
 #
 # Searchs the component directory and combines names if there is a component or subcomponent dictionary level with only one key.
@@ -132,9 +159,3 @@ def combine_dictionary_levels(dictionary) :
         for cc in list(dictionary.keys()) :  # Copy of the keys.
                 combined_dict.update({cc : combine_dictionary_names(dictionary[cc])})
         return(combined_dict)
-
-
-
-
-                                
-
