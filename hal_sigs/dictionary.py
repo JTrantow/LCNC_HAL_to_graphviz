@@ -31,10 +31,7 @@ def print_dictionary(dict) :
 #
 # Create and return a nested dictionary for the a subset of the full pin name.
 #
-def create_name_dict(name_list, pin_details) :
-        #print("\t\tcreate_name_dict() ",end="")
-        #print(name_list)
-        
+def create_name_dict(name_list, pin_details) :        
         pin_name_dict = {}
         #
         # Last dictionary value in list is the leaf pin name with details list.
@@ -85,12 +82,8 @@ def create_component_dictionary(filename) :
                 if len(line.split()) >= 5 :
                         comp_name, pin_type, pin_dir, pin_value, pin_name = line.split()[:5]
 
-                        #print("NEW FILE LINE " + comp_name, pin_name, pin_dir)
                         name_dictionary = component_dictionary.setdefault(comp_name,{})
                         parse_fullpinname(pin_name, [pin_dir, pin_type, pin_value], name_dictionary)
-                        #print('\n\n---- LINE COMPLETE ---------------------')
-                        #print_dictionary(component_dictionary)
-                        #print('---------------------------------------')
                 else :
                         print("check " + filename + " for empty lines")
                         break;
@@ -136,7 +129,6 @@ def combine_dictionary_names(names_dict) :
                 rec_dict = {}
                 for component_key in combined_dict.keys() :  
 
-                        print(component_key, combined_dict[component_key])
                         if isinstance(combined_dict[component_key], dict) :
                                 #
                                 # Recurse the next sub level of dictionary we may have updated.

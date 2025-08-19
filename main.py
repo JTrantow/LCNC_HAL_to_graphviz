@@ -17,8 +17,6 @@
 import string
 from hal_sigs import *
 
-print("\n\n\n\n\n\n\nmain() starts here");
-
 #
 # Create a component hash of all the different components and pin_names and pin_dir.
 #
@@ -29,8 +27,6 @@ if (1) :
     # Optional step that combines dictionary levels if there is only one element.
     #
     component_dict = dictionary.combine_dictionary_levels(component_dict)
-
-    print(component_dict)
 
 if (1) : 
     #

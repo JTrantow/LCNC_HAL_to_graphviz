@@ -65,7 +65,7 @@ def create_subcomponent(pin_name_prefix_root, name_dict) :
                                                 in_count += 1
                                                 io_count += 1
                                         else :
-                                                print('Undefined pin type.')
+                                                print('# Undefined pin type???')
                                                 break;
                                 else :
                                         #
@@ -185,11 +185,7 @@ def edge_name(pin_name, name_structure) :
                 n = '"' + node_string + '":"' + pin_name + '"'
         else :
                 leaf_name = search_pin(pin_name, name_structure)
-
                 cluster_name = pin_name.removesuffix('.' + leaf_name)
-
-                #print("\n# cluster_name = " + cluster_name)
-                #print("# leaf_name = " + leaf_name)
                 n = '"' + cluster_name + '":"' + pin_name + '"'
         return n
 
@@ -277,7 +273,7 @@ def create_edges(signal_file_name, name_structure_dict) :
                                         for [d,n] in sig_pairs :
                                                 if d == "==>" :
                                                         dest_node_edge = edge_name(n, name_structure_dict)
-                                                        print('\t' + src_node_edge + ' -> ' + dest_node_edge + ' [label="' + signal_name + '"]')
+                                                        print('\t' + src_node_edge + ':e -> ' + dest_node_edge + ' [label="' + signal_name + '"]')
                                 elif (1 == source_count) and (0 == dest_count) :
                                         #
                                         # Create a sink for this signal.
@@ -285,8 +281,10 @@ def create_edges(signal_file_name, name_structure_dict) :
                                         sink_list.append('"' + signal_name + '"')
                                         dest_node_edge = sink_list[-1]
 
+                                        source = [n for [d,n] in sig_pairs if d == "<=="] 
                                         src_node_edge = edge_name(source[0], name_structure_dict)
-                                        print('\t' + src_node_edge + ' -> ' + dest_node_edge + ' [label="' + signal_name + '"]')
+                                        
+                                        print('\t' + src_node_edge + ' -> ' + dest_node_edge + ':w [label="' + signal_name + '"]')
 
                                 elif (1 == source_count) and (1 <= dest_count) :
                                         #
