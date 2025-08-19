@@ -65,7 +65,7 @@ halcmd -s show sig | grep -v "^$" > sig.out
 ```
 - Run the python code to create the dot output.
 ```
-python3 hal_sigs_graphviz.py > myconfig.dot
+python3 main.py > myconfig.dot
 ```
 ## Example Output: 
 (showning complexity and other problems.)
